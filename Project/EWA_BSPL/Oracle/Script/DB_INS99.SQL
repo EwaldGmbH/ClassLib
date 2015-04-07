@@ -3850,6 +3850,62 @@ Insert Into
 )
 Select
   DV_PROG_MELDUNG_SEQ.Nextval,
+  'Eingabe nicht numerisch.',
+  0010,
+  'MLD',
+  '(&00) Fehler'
+From
+  DUAL
+Where
+  Not Exists
+  (
+    Select
+      1
+    From
+      DV_PROG_MELDUNG
+    Where
+      DV_PROG_MELDUNG.NUMMER = 0010 And
+      DV_PROG_MELDUNG.PRAEFIX = 'MLD'
+  );
+Insert Into
+  DV_PROG_MELDUNG
+(
+  DV_PROG_MELD_SEQ,
+  MELD_TEXT,
+  NUMMER,
+  PRAEFIX,
+  TITEL
+)
+Select
+  DV_PROG_MELDUNG_SEQ.Nextval,
+  'Eingabe darf nur vierstellig sein.',
+  0020,
+  'MLD',
+  '(&00) Fehler'
+From
+  DUAL
+Where
+  Not Exists
+  (
+    Select
+      1
+    From
+      DV_PROG_MELDUNG
+    Where
+      DV_PROG_MELDUNG.NUMMER = 0020 And
+      DV_PROG_MELDUNG.PRAEFIX = 'MLD'
+  );
+Insert Into
+  DV_PROG_MELDUNG
+(
+  DV_PROG_MELD_SEQ,
+  MELD_TEXT,
+  NUMMER,
+  PRAEFIX,
+  TITEL
+)
+Select
+  DV_PROG_MELDUNG_SEQ.Nextval,
   'Es können keine Programme zugewiesen werden, da der angemeldete ' ||
   'Mitarbeiter zur Rechtegruppe gehört.',
   0010,
