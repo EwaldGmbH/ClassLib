@@ -1,0 +1,147 @@
+Create Or Replace Package RECHTE11 Authid Current_user
+Is
+/*****************************************************************************/
+/*****************************************************************************/
+/**                                                                         **/
+/**   DB-Paket .......:  RECHTE11 (Header)                                  **/
+/**                                                                         **/
+/**   Version ........:  V004 vom 07.04.2015                                **/
+/**                                                                         **/
+/**   Autor: .........:  Ewald GmbH          (Kontakt: info@ewald.de)       **/
+/**                                                                         **/
+/**   Dieses Programm ist freie Software. Sie können es unter den Beding-   **/
+/**   ungen der GNU General Public License, wie von der Free Software       **/
+/**   Foundation veröffentlicht, weitergeben und/oder modifizieren, ent-    **/
+/**   weder gemäß Version 3 der Lizenz oder (nach Ihrer Option) jeder       **/
+/**   späteren Version.                                                     **/
+/**                                                                         **/
+/**   Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, dass   **/
+/**   es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, sogar   **/
+/**   ohne die implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT    **/
+/**   FÜR EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General     **/
+/**   Public License.                                                       **/
+/**                                                                         **/
+/**   Sie sollten ein Exemplar der GNU General Public License zusammen mit  **/
+/**   diesem Programm erhalten haben.                                       **/
+/**   Falls nicht, siehe <http://www.gnu.org/licenses/>.                    **/
+/**                                                                         **/
+/**   Funktion .......:  Rechteverwaltung                                   **/
+/**                                                                         **/
+/*****************************************************************************/
+/*****************************************************************************/
+/**                                                                         **/
+/**   Änderungsgeschichte                                                   **/
+/**                                                                         **/
+/**   Vers. Datum       Bearb.  Aenderungsgrund (lt. Antrag)                **/
+/**   --------------------------------------------------------------------  **/
+/**   004   07.04.2015  EWA/JH  Anpassung für Open Source.                  **/
+/**                                                                         **/
+/*****************************************************************************/
+/*****************************************************************************/
+-------------------------------------------------------------------------------
+-- Globale Konstanten                                                        --
+-------------------------------------------------------------------------------
+
+   KvsgAppl         varchar2(30) := 'RECHTE11';
+   KvsgVers         varchar2(03) := '004';
+
+   KvsgDBRead       varchar2(01) := 'R';
+   KvsgDBWrite      varchar2(01) := 'W';
+   KvsgPgCall       varchar2(01) := 'X';
+
+   KvsgSelect       varchar2(01) := 'S';
+   KvsgUpdate       varchar2(01) := 'U';
+   KvsgInsert       varchar2(01) := 'I';
+   KvsgDelete       varchar2(01) := 'D';
+
+   KvsgSelectV      varchar2(03) := '%S%';
+   KvsgUpdateV      varchar2(03) := '%U%';
+   KvsgInsertV      varchar2(03) := '%I%';
+   KvsgDeleteV      varchar2(03) := '%D%';
+
+   KngHierTop       number(01)   := 0;
+
+-------------------------------------------------------------------------------
+-- Globale Variablen                                                         --
+-------------------------------------------------------------------------------
+
+   igAnzRecht       integer;
+   igAnzSonder      integer;
+   igAnzOrgEinh     integer;
+
+-------------------------------------------------------------------------------
+-- Tabellen                                                                  --
+-------------------------------------------------------------------------------
+
+   type rgRecht is record
+        ( funkt     schl_dv_prog_funktion.dvprogf_kurz%type
+        , hierarch  schl_hierarchie.hierarchie%type
+        , recht     recht_gruppe.rechtgr_recht%type );
+
+   type tgRecht is table
+        of rgRecht
+        index by binary_integer;
+
+   type tgSonder is table
+        of varchar2(1)
+        index by binary_integer;
+
+   type tgOrgEinh is table
+        of schl_hierarchie.hierarchie%type
+        index by binary_integer;
+
+   egRecht    tgRecht;
+   egSonder   tgSonder;
+   egOrgEinh  tgOrgEinh;
+
+-------------------------------------------------------------------------------
+-- Prozeduren                                                                --
+-------------------------------------------------------------------------------
+
+   procedure init;
+
+-------------------------------------------------------------------------------
+-- Funktionen                                                                --
+-------------------------------------------------------------------------------
+
+   function pruefe1
+            ( vspFunkt   in varchar2
+            , vspRecht   in varchar2
+            , npSonder   in number
+            , npOrgEinh  in number )
+              return        number;
+   pragma restrict_references
+            ( pruefe1
+           , WNDS, WNPS ) ;
+
+   function pruefe2
+            ( vspFunkt   in varchar2
+            , vspRecht   in varchar2
+            , npSonder   in number
+            , npOrgEinh  in number
+            , vspUser2   in varchar2 )
+              return        number;
+   pragma restrict_references
+            ( pruefe2
+           , WNDS, WNPS ) ;
+
+   function hole1
+            ( vspFunkt   in varchar2
+            , npSonder   in number
+            , npOrgEinh  in number )
+              return        varchar2;
+   pragma restrict_references
+            ( hole1
+            , WNDS, WNPS ) ;
+
+   function hole2
+            ( vspFunkt   in varchar2
+            , npSonder   in number
+            , npOrgEinh  in number
+            , vspUser2   in varchar2 )
+              return        varchar2;
+   pragma restrict_references
+            ( hole2
+            , WNDS, WNPS ) ;
+
+end rechte11;

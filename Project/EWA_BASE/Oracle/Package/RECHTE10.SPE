@@ -1,0 +1,121 @@
+Create Or Replace Package RECHTE10 Authid Current_user
+Is
+/*****************************************************************************/
+/*****************************************************************************/
+/**                                                                         **/
+/**   DB-Paket .......:  RECHTE10 (Header)                                  **/
+/**                                                                         **/
+/**   Version ........:  V003 vom 07.04.2015                                **/
+/**                                                                         **/
+/**   Autor: .........:  Ewald GmbH          (Kontakt: info@ewald.de)       **/
+/**                                                                         **/
+/**   Dieses Programm ist freie Software. Sie können es unter den Beding-   **/
+/**   ungen der GNU General Public License, wie von der Free Software       **/
+/**   Foundation veröffentlicht, weitergeben und/oder modifizieren, ent-    **/
+/**   weder gemäß Version 3 der Lizenz oder (nach Ihrer Option) jeder       **/
+/**   späteren Version.                                                     **/
+/**                                                                         **/
+/**   Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, dass   **/
+/**   es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, sogar   **/
+/**   ohne die implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT    **/
+/**   FÜR EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General     **/
+/**   Public License.                                                       **/
+/**                                                                         **/
+/**   Sie sollten ein Exemplar der GNU General Public License zusammen mit  **/
+/**   diesem Programm erhalten haben.                                       **/
+/**   Falls nicht, siehe <http://www.gnu.org/licenses/>.                    **/
+/**                                                                         **/
+/**   Funktion .......:  Rechteverwaltung                                   **/
+/**                                                                         **/
+/**   Hinweise .......:  Kein Zugriff auf DB-Tabellen                       **/
+/**                      erfolgt ueber RECHTE11                             **/
+/**                                                                         **/
+/**                      Bei Test oder Extern:                              **/
+/**                      alle Zeilen mit Aufruf RECHTE11 auskommentieren    **/
+/**                      und evtl. Anweisung "null;" setzen                 **/
+/**                                                                         **/
+/*****************************************************************************/
+/*****************************************************************************/
+/**                                                                         **/
+/**   Änderungsgeschichte                                                   **/
+/**                                                                         **/
+/**   Vers. Datum       Bearb.  Aenderungsgrund (lt. Antrag)                **/
+/**   --------------------------------------------------------------------  **/
+/**   003   07.04.2015  EWA/JH  Anpassung für Open Source.                  **/
+/**                                                                         **/
+/*****************************************************************************/
+/*****************************************************************************/
+-------------------------------------------------------------------------------
+-- Globale Konstanten                                                        --
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+-- Globale Variablen                                                         --
+-------------------------------------------------------------------------------
+   
+   vsgDBName        varchar2(08);
+   vsgDBAppl        varchar2(48);
+   vsgDBFunkt       varchar2(32);
+   vsgDBUser        varchar2(64);
+
+   vsgRecht         varchar2(10);
+   vsgGlobal        varchar2(10);
+        
+   bgTest           boolean := false;
+
+-------------------------------------------------------------------------------
+-- Prozeduren                                                                --
+-------------------------------------------------------------------------------
+   
+   procedure test
+             ( vspRecht  in varchar2 := NULL
+             , vspGlobal in varchar2 := NULL );
+ 
+   procedure init
+             ( vspUser   in  varchar2 := NULL
+             , vspAppl   in  varchar2 := NULL
+             , vspGlobal out varchar2 );
+
+   procedure pruefe
+             ( vspFunkt   in  varchar2
+             , vspRecht   in  varchar2
+             , npSonder   in  number   := NULL
+             , npOrgEinh  in  number   := NULL
+             , vspUser2   in  varchar2 := NULL
+             , npReturn   out number );
+
+   procedure hole
+             ( vspFunkt   in  varchar2
+             , vspRecht   in  varchar2 := NULL
+             , npSonder   in  number   := NULL
+             , npOrgEinh  in  number   := NULL
+             , vspUser2   in  varchar2 := NULL
+             , vspReturn  out varchar2 );
+
+-------------------------------------------------------------------------------
+-- Funktionen                                                                --
+-------------------------------------------------------------------------------
+
+   function pruefe
+            ( vspFunkt   in varchar2
+            , vspRecht   in varchar2
+            , npSonder   in number   := NULL
+            , npOrgEinh  in number   := NULL
+            , vspUser2   in varchar2 := NULL )
+              return        number;
+   pragma restrict_references
+            ( pruefe
+            , WNDS, WNPS ) ;
+
+   function hole
+            ( vspFunkt   in varchar2
+            , vspRecht   in varchar2 := NULL
+            , npSonder   in number   := NULL
+            , npOrgEinh  in number   := NULL
+            , vspUser2   in varchar2 := NULL )
+              return        varchar2;
+   pragma restrict_references
+            ( hole
+            , WNDS, WNPS ) ;
+
+end rechte10;

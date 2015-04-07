@@ -1,0 +1,58 @@
+Create Or Replace Package KRMASK01
+Is
+/*****************************************************************************/
+/*****************************************************************************/
+/**                                                                         **/
+/**   DB-Paket .......:  KRMASK01 (Header)                                  **/
+/**                                                                         **/
+/**   Version ........:  V003 vom 07.04.2015                                **/
+/**                                                                         **/
+/**   Autor: .........:  Ewald GmbH          (Kontakt: info@ewald.de)       **/
+/**                                                                         **/
+/**   Dieses Programm ist freie Software. Sie können es unter den Beding-   **/
+/**   ungen der GNU General Public License, wie von der Free Software       **/
+/**   Foundation veröffentlicht, weitergeben und/oder modifizieren, ent-    **/
+/**   weder gemäß Version 3 der Lizenz oder (nach Ihrer Option) jeder       **/
+/**   späteren Version.                                                     **/
+/**                                                                         **/
+/**   Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, dass   **/
+/**   es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, sogar   **/
+/**   ohne die implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT    **/
+/**   FÜR EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General     **/
+/**   Public License.                                                       **/
+/**                                                                         **/
+/**   Sie sollten ein Exemplar der GNU General Public License zusammen mit  **/
+/**   diesem Programm erhalten haben.                                       **/
+/**   Falls nicht, siehe <http://www.gnu.org/licenses/>.                    **/
+/**                                                                         **/
+/**   Funktion ......:  Funktionen für Masken                               **/
+/**                                                                         **/
+/*****************************************************************************/
+/*****************************************************************************/
+/**                                                                         **/
+/**   Änderungsgeschichte                                                   **/
+/**                                                                         **/
+/**   Vers. Datum       Bearb.  Aenderungsgrund (lt. Antrag)                **/
+/**   --------------------------------------------------------------------- **/
+/**   003   07.04.2015  EWA/JH  Anpassung für Open Source.                  **/
+/**                                                                         **/
+/*****************************************************************************/
+/*****************************************************************************/
+--------------------------------------------------------------------------------
+-- Funktionen                                                                 --
+--------------------------------------------------------------------------------
+/******************************************************************************/
+/** Funktion, die den Altwert aus dem Protokoll liefert                      **/
+/******************************************************************************/
+    Function GET_ALTWERT
+    (
+        npBearblistSeq      In      BEARBEITUNG_LISTE.BEARBLIST_SEQ%Type,
+        npProtzZeileSeq     In      PROTOKOLL_ZEILE.PROTZ_ZEILE_SEQ%Type,
+        vspProtzTabelle     In      PROTOKOLL_ZEILE.PROTZ_TABELLE%Type,
+        vspProtwSpalte      In      PROTOKOLL_WERT.PROTW_SPALTE%Type
+    )
+        Return  Varchar2 ;
+    Pragma RESTRICT_REFERENCES
+        ( GET_ALTWERT, WNDS, WNPS );
+
+End KRMASK01;

@@ -1,0 +1,177 @@
+Create Or Replace Package DVPGPA01
+Is
+/*****************************************************************************/
+/*****************************************************************************/
+/**                                                                         **/
+/**   DB-Paket .......:  DVPGPA01 (Header)                                  **/
+/**                                                                         **/
+/**   Version ........:  V002 vom 07.04.2015                                **/
+/**                                                                         **/
+/**   Autor: .........:  Ewald GmbH          (Kontakt: info@ewald.de)       **/
+/**                                                                         **/
+/**   Dieses Programm ist freie Software. Sie können es unter den Beding-   **/
+/**   ungen der GNU General Public License, wie von der Free Software       **/
+/**   Foundation veröffentlicht, weitergeben und/oder modifizieren, ent-    **/
+/**   weder gemäß Version 3 der Lizenz oder (nach Ihrer Option) jeder       **/
+/**   späteren Version.                                                     **/
+/**                                                                         **/
+/**   Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, dass   **/
+/**   es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, sogar   **/
+/**   ohne die implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT    **/
+/**   FÜR EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General     **/
+/**   Public License.                                                       **/
+/**                                                                         **/
+/**   Sie sollten ein Exemplar der GNU General Public License zusammen mit  **/
+/**   diesem Programm erhalten haben.                                       **/
+/**   Falls nicht, siehe <http://www.gnu.org/licenses/>.                    **/
+/**                                                                         **/
+/**   Funktion .......:  Ermitteln von Programmparametern und Werten        **/
+/**                      Wird der Parameter nicht gefunden Neuanlage        **/
+/**                                                                         **/
+/*****************************************************************************/
+/*****************************************************************************/
+/**                                                                         **/
+/**   Änderungsgeschichte                                                   **/
+/**                                                                         **/
+/**   Vers. Datum       Bearb.  Aenderungsgrund (lt. Antrag)                **/
+/**   --------------------------------------------------------------------- **/
+/**   002   07.04.2015  EWA/JH  Anpassung für Open Source.                  **/
+/**                                                                         **/
+/*****************************************************************************/
+/*****************************************************************************/
+--------------------------------------------------------------------------------
+-- Globale Typen                                                              --
+--------------------------------------------------------------------------------
+    TYPE DvProgpwValueAType IS TABLE OF DV_PROG_PARAM_WERT.DVPROGPW_VALUE_A%TYPE
+                               INDEX BY binary_integer;
+
+    TYPE DvProgpwValueNType IS TABLE OF DV_PROG_PARAM_WERT.DVPROGPW_VALUE_N%TYPE
+                               INDEX BY binary_integer;
+
+    TYPE DvProgpwValueDType IS TABLE OF DV_PROG_PARAM_WERT.DVPROGPW_VALUE_D%TYPE
+                               INDEX BY binary_integer;
+
+--------------------------------------------------------------------------------
+-- Globale Konstanten                                                         --
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+-- Globale Variablen                                                          --
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+-- Proceduren                                                                 --
+--------------------------------------------------------------------------------
+/******************************************************************************/
+/** Procedur, ermitteln / erzeugen eines Alphanumerischen Parameters         **/
+/******************************************************************************/
+    Procedure GET_StrOneDvProgParamValue
+    (
+        npDvProgpNr          In       DV_PROG_PARAM.DVPROGP_NR%Type,
+        vspDvProgpProg       In       DV_PROG_PARAM.DVPROGP_PROG%Type,
+        vspDvProgpBez        In       DV_PROG_PARAM.DVPROGP_BEZ%Type,
+        vspDefaultValueA     In       DV_PROG_PARAM_WERT.DVPROGPW_VALUE_A%Type,
+        npCommitJn           In       number,
+        vspDvProgpwValueA    Out      DV_PROG_PARAM_WERT.DVPROGPW_VALUE_A%Type,
+        npError              Out      number
+    )   ;
+
+/******************************************************************************/
+/** Procedur, ermitteln / erzeugen mehrerer Alphanumerischer Parameter       **/
+/******************************************************************************/
+    Procedure GET_StrAllDvProgParamValue
+    (
+        npDvProgpNr          In        DV_PROG_PARAM.DVPROGP_NR%Type,
+        vspDvProgpProg       In        DV_PROG_PARAM.DVPROGP_PROG%Type,
+        vspDvProgpBez        In        DV_PROG_PARAM.DVPROGP_BEZ%Type,
+        npCommitJn           In       number,
+        npAnzahlValues       In Out    number,
+        vspDvProgpwValueA    In Out    DvProgpwValueAType,
+        npError              Out       number
+    )   ;
+
+/******************************************************************************/
+/** Procedur, ermitteln / erzeugen eines Numerischen Parameters              **/
+/******************************************************************************/
+    Procedure GET_NumOneDvProgParamValue
+    (
+        npDvProgpNr          In        DV_PROG_PARAM.DVPROGP_NR%Type,
+        vspDvProgpProg       In        DV_PROG_PARAM.DVPROGP_PROG%Type,
+        vspDvProgpBez        In        DV_PROG_PARAM.DVPROGP_BEZ%Type,
+        npDefaultValueN      In        DV_PROG_PARAM_WERT.DVPROGPW_VALUE_N%Type,
+        npCommitJn           In       number,
+        npDvProgpwValueN     Out       DV_PROG_PARAM_WERT.DVPROGPW_VALUE_N%Type,
+        npError              Out       number
+    )   ;
+
+/******************************************************************************/
+/** Procedur, ermitteln mehrerer Numerischer Parameter                       **/
+/******************************************************************************/
+    Procedure GET_NumAllDvProgParamValue
+    (
+        npDvProgpNr          In        DV_PROG_PARAM.DVPROGP_NR%Type,
+        vspDvProgpProg       In        DV_PROG_PARAM.DVPROGP_PROG%Type,
+        vspDvProgpBez        In        DV_PROG_PARAM.DVPROGP_BEZ%Type,
+        npCommitJn           In        number,
+        npAnzahlValues       In Out    number,
+        npDvProgpwValueN     In Out    DvProgpwValueNType,
+        npError              Out       number
+    )   ;
+
+/******************************************************************************/
+/** Procedur, ermitteln / erzeugen eines Datum-Parameters                    **/
+/******************************************************************************/
+    Procedure GET_DateOneDvProgParamValue
+    (
+        npDvProgpNr          In        DV_PROG_PARAM.DVPROGP_NR%Type,
+        vspDvProgpProg       In        DV_PROG_PARAM.DVPROGP_PROG%Type,
+        vspDvProgpBez        In        DV_PROG_PARAM.DVPROGP_BEZ%Type,
+        dtpDefaultValueD     In        DV_PROG_PARAM_WERT.DVPROGPW_VALUE_D%Type,
+        npCommitJn           In        number,
+        dtpDvProgpwValueD    Out       DV_PROG_PARAM_WERT.DVPROGPW_VALUE_D%Type,
+        npError              Out       number
+    )   ;
+
+/******************************************************************************/
+/** Procedur, ermitteln mehrerer Datum-Parameter                             **/
+/******************************************************************************/
+    Procedure GET_DateAllDvProgParamValue
+    (
+        npDvProgpNr          In        DV_PROG_PARAM.DVPROGP_NR%Type,
+        vspDvProgpProg       In        DV_PROG_PARAM.DVPROGP_PROG%Type,
+        vspDvProgpBez        In        DV_PROG_PARAM.DVPROGP_BEZ%Type,
+        npCommitJn           In        number,
+        npAnzahlValues       In Out    number,
+        dtpDvProgpwValueD    In Out    DvProgpwValueDType,
+        npError              Out       number
+    )   ;
+
+/******************************************************************************/
+/** Procedur, ermitteln / erzeugen eines Uhrzeit-Parameters                  **/
+/******************************************************************************/
+    Procedure GET_TimeOneDvProgParamValue
+    (
+        npDvProgpNr          In        DV_PROG_PARAM.DVPROGP_NR%Type,
+        vspDvProgpProg       In        DV_PROG_PARAM.DVPROGP_PROG%Type,
+        vspDvProgpBez        In        DV_PROG_PARAM.DVPROGP_BEZ%Type,
+        dtpDefaultValueU     In        DV_PROG_PARAM_WERT.DVPROGPW_VALUE_D%Type,
+        npCommitJn           In        number,
+        dtpDvProgpwValueU    Out       DV_PROG_PARAM_WERT.DVPROGPW_VALUE_D%Type,
+        npError              Out       number
+    )   ;
+
+/******************************************************************************/
+/** Procedur, ermitteln mehrerer Uhrzeit-Parameter                           **/
+/******************************************************************************/
+    Procedure GET_TimeAllDvProgParamValue
+    (
+        npDvProgpNr          In        DV_PROG_PARAM.DVPROGP_NR%Type,
+        vspDvProgpProg       In        DV_PROG_PARAM.DVPROGP_PROG%Type,
+        vspDvProgpBez        In        DV_PROG_PARAM.DVPROGP_BEZ%Type,
+        npCommitJn           In        number,
+        npAnzahlValues       In Out    number,
+        dtpDvProgpwValueU    In Out    DvProgpwValueDType,
+        npError              Out       number
+    )   ;
+
+End DVPGPA01;
