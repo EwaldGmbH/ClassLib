@@ -2,6 +2,32 @@
 == Framework für Gupta Team Developer ==
 ========================================
 
+Features:
+---------
+
+- Anbindung an ORACLE-Datenbank.
+
+- Klassen für Masken zur Suche und Auswahl von Datensätzen.
+
+- Klassen für Masken zur Erfassung und Bearbeitung von Datensätzen.
+
+- Automatische Protokollierung von Änderungen.
+
+- Komplette Rechteverwaltung für die Masken und weitere Funktionalitäten.
+
+- Workflow (4-Augenprinzip) über die Bearbeitungslistenfunktionalität.
+
+- Einfaches Hinzufügen bzw. Entfernenen von Objekten für eine Datenbankspalte:
+  - Auf dem Objekt muss nur Datenbanktabelle und Datenbankspalte gesetzt werden
+    => Automatisch in SQL-Statements und in der Protokollierung.
+
+- Meldungstexte können in der Datenbank hinterlegt werden.
+
+- Programmparameter können in der Datenbank hinterlegt und dort ausgelesen werden.
+
+- Beispielapplikation, die ausführlich die wichtigsten Funktionalitäten aufzeigt.
+
+
 Voraussetzungen:
 ----------------
 
