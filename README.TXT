@@ -55,11 +55,11 @@ Anpassungen:
 
 - Bei den Pfadeinträgen wird angenommen, dass die Installation in folgenden
   Verzeichnissen erfolgt ist:
-  - J:\Development\TD6\Admin
-  - J:\Development\TD6\Bitmap
-  - J:\Development\TD6\Help
-  - J:\Development\TD6\Project
-  - J:\Development\TD6\Report
+  - J:\Development\TD61\Admin
+  - J:\Development\TD61\Bitmap
+  - J:\Development\TD61\Help
+  - J:\Development\TD61\Project
+  - J:\Development\TD61\Report
 
 - Ist dies nicht der Fall, müssen die folgenden Pfade angepasst werden:
   - In ..\Admin müssen die Pfade in der <EWA_APP.INI> geprüft und angepasst
