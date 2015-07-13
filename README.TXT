@@ -27,6 +27,13 @@ Features:
 
 - Beispielapplikation, die ausführlich die wichtigsten Funktionalitäten aufzeigt.
 
+Videos:
+-------
+
+- Auf YouTube stehen im Channel "Ewald GmbH" mehrere Videos bereit, in denen das Framework und die
+  Beispielapplikation vorgestellt werden (in YouTube nach "Ewald GmbH Framework") suchen.
+- Video zur Installation der Klassenbibliotheken unter https://youtu.be/w_EZA0OaS8Y
+- Video zur Beispielapplikation der Klassenbibliotheken unter https://youtu.be/U-rUD4LOTac
 
 Voraussetzungen:
 ----------------
@@ -37,8 +44,8 @@ Voraussetzungen:
     <http://www.guptatechnologies.com/Services/productDownloads.aspx>
     heruntergeladen werden.
 
-- ORACLE-Datenbank (in 32-Bit Version, da 64-Bit Version nicht unterstützt)
-  (getestet mit ORACLE XE 11.2)
+- ORACLE-Datenbank
+  (getestet mit ORACLE XE 11.2 - 32 Bit-Version)
   - Kostenlose Testversion kann von
     <http://www.oracle.com/technetwork/database/enterprise-edition/downloads>
     heruntergeladen werden.
